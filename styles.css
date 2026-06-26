@@ -66,7 +66,7 @@ a {
   height: 38px;
   place-items: center;
   color: #fff;
-  background: var(--accent-strong);
+  background: #0d3440;
   border-radius: 50%;
   font-size: 13px;
 }
@@ -160,7 +160,8 @@ p {
 }
 
 .actions,
-.contact-links {
+.contact-links,
+.resume-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -303,6 +304,7 @@ p {
 .video-section,
 .stack-section,
 .experience-section,
+.meeting-section,
 .closing {
   padding: clamp(70px, 10vw, 118px) clamp(20px, 5vw, 72px);
 }
@@ -618,8 +620,243 @@ p {
   border-radius: var(--radius);
 }
 
+.meeting-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(360px, 0.78fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: stretch;
+  margin: 0 clamp(20px, 5vw, 72px);
+  padding: clamp(30px, 5vw, 56px);
+  color: #fff;
+  background: var(--accent-strong);
+  border-radius: var(--radius);
+}
+
+.meeting-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.meeting-section h2 {
+  max-width: 12ch;
+  margin-bottom: 12px;
+  font-size: clamp(32px, 5vw, 58px);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.meeting-section p {
+  max-width: 68ch;
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 18px;
+}
+
+.meeting-section .role-line {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.meeting-section .button.secondary {
+  width: fit-content;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+}
+
+.calendly-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.calendly-inline-widget {
+  width: 100%;
+}
+
 .resume-section h2 {
   font-size: clamp(30px, 4vw, 52px);
+}
+
+.resume-actions {
+  justify-content: flex-end;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.chat-launcher {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 30;
+  min-width: 72px;
+  height: 48px;
+  padding: 0 18px;
+  color: #fff;
+  background: #0d3440;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  box-shadow: 0 18px 46px rgba(13, 52, 64, 0.24);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.faq-chat {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: calc(clamp(16px, 3vw, 28px) + 62px);
+  z-index: 31;
+  display: grid;
+  width: min(380px, calc(100vw - 32px));
+  max-height: min(680px, calc(100dvh - 112px));
+  grid-template-rows: auto minmax(180px, 1fr) auto auto;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.faq-chat[hidden] {
+  display: none;
+}
+
+.chat-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px;
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.chat-header strong,
+.chat-header span {
+  display: block;
+}
+
+.chat-header span {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chat-close {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.chat-log {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 220px;
+  padding: 14px;
+  overflow-y: auto;
+  background: var(--surface-soft);
+}
+
+.chat-message {
+  max-width: 88%;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: calc(var(--radius) - 4px);
+  font-size: 14px;
+}
+
+.chat-message.bot {
+  justify-self: start;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.chat-message.user {
+  justify-self: end;
+  color: #fff;
+  background: #0d3440;
+}
+
+.quick-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px 0;
+  background: var(--surface);
+}
+
+.quick-prompts button {
+  padding: 7px 10px;
+  color: var(--accent-strong);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.chat-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 12px 14px 14px;
+  background: var(--surface);
+}
+
+.chat-form input {
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 4px);
+  font: inherit;
+  font-size: 14px;
+}
+
+.chat-form input::placeholder {
+  color: var(--muted);
+}
+
+.chat-form button {
+  height: 42px;
+  padding: 0 14px;
+  color: #fff;
+  background: #0d3440;
+  border: 1px solid #0d3440;
+  border-radius: calc(var(--radius) - 4px);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .closing {
@@ -683,12 +920,21 @@ p {
     border-color: var(--accent-strong);
     color: var(--accent-strong);
   }
+
+  .chat-header,
+  .chat-message.user,
+  .chat-form button,
+  .chat-launcher {
+    color: #fff;
+    background: #0d3440;
+  }
 }
 
 @media (max-width: 1040px) {
   .hero,
   .work-layout,
   .video-section,
+  .meeting-section,
   .closing {
     grid-template-columns: 1fr;
   }
@@ -717,11 +963,12 @@ p {
 
   nav {
     width: 100%;
+    max-width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
-    column-gap: 14px;
+    column-gap: 10px;
     row-gap: 8px;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .language-switch {
@@ -729,7 +976,7 @@ p {
   }
 
   nav a {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     padding-right: 0;
   }
 
@@ -772,8 +1019,14 @@ p {
   .stack-grid,
   .method-list article,
   .timeline article,
+  .meeting-section,
   .resume-section {
     grid-template-columns: 1fr;
+  }
+
+  .calendly-inline-widget {
+    min-width: 100% !important;
+    height: 680px !important;
   }
 
   .board {
@@ -787,6 +1040,25 @@ p {
 
   .resume-section {
     align-items: start;
+  }
+
+  .resume-actions {
+    justify-content: flex-start;
+  }
+
+  .chat-launcher {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .faq-chat {
+    right: 14px;
+    bottom: 76px;
+    width: calc(100vw - 28px);
+  }
+
+  .chat-form {
+    grid-template-columns: 1fr;
   }
 
   .button {
