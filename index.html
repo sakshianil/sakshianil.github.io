@@ -1,10 +1,13 @@
 <!doctype html>
-<html lang="en" data-lang="en">
+<html lang="en" data-lang="en" data-theme="light" data-palette="ink" data-font="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Dr. Sakshi Bharti, scientific AI and data operations leader working across bioinformatics, healthcare AI, automation, and startup execution.">
   <title>Dr. Sakshi Bharti | Scientific AI & Data Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,450;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,6 +28,7 @@
       <button type="button" class="active" data-set-lang="en">EN</button>
       <button type="button" data-set-lang="de">DE</button>
     </div>
+    <button class="style-toggle" type="button" aria-expanded="false" aria-controls="style-panel" data-en="Style" data-de="Stil">Style</button>
   </header>
 
   <main id="top">
@@ -276,7 +280,61 @@
         <a href="https://github.com/sakshianil" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <div>
+        <h2 data-en="Available for focused work, worldwide." data-de="Verfuegbar fuer fokussierte Arbeit, weltweit.">Available for focused work, worldwide.</h2>
+        <p data-en="Based in Germany, open to remote, hybrid and international collaborations across healthcare AI, scientific data, bioinformatics and operations." data-de="In Deutschland ansaessig, offen fuer Remote-, Hybrid- und internationale Zusammenarbeit in Healthcare AI, Scientific Data, Bioinformatik und Operations.">Based in Germany, open to remote, hybrid and international collaborations across healthcare AI, scientific data, bioinformatics and operations.</p>
+      </div>
+      <div class="footer-panel">
+        <div class="availability-grid">
+          <span data-en="Based in Germany" data-de="In Deutschland">Based in Germany</span>
+          <span data-en="Worldwide availability" data-de="Weltweit verfuegbar">Worldwide availability</span>
+          <span data-en="Remote, hybrid, project-based" data-de="Remote, hybrid, projektbasiert">Remote, hybrid, project-based</span>
+        </div>
+        <div class="social-links" aria-label="Social connectivity">
+          <a href="mailto:sbbinfo90@gmail.com" aria-label="Email">Email</a>
+          <a href="https://www.linkedin.com/in/sakshibsharma" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+          <a href="https://github.com/sakshianil" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
+          <a href="https://orcid.org/0000-0001-5356-7666" target="_blank" rel="noreferrer" aria-label="ORCID">ORCID</a>
+        </div>
+      </div>
+    </footer>
   </main>
+
+  <aside id="style-panel" class="style-panel" aria-label="Website appearance controls" hidden>
+    <div class="style-panel-header">
+      <strong data-en="Appearance" data-de="Darstellung">Appearance</strong>
+      <button type="button" class="style-close" aria-label="Close style controls">x</button>
+    </div>
+
+    <div class="control-group">
+      <span data-en="Theme" data-de="Theme">Theme</span>
+      <div class="segmented-control" role="group" aria-label="Theme options">
+        <button type="button" class="active" data-set-theme="light" data-en="Light" data-de="Hell">Light</button>
+        <button type="button" data-set-theme="dark" data-en="Dark" data-de="Dunkel">Dark</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span data-en="Palette" data-de="Palette">Palette</span>
+      <div class="palette-options" role="group" aria-label="Color palette options">
+        <button type="button" class="active" data-set-palette="ink"><span style="background:#111111"></span>Ink</button>
+        <button type="button" data-set-palette="cobalt"><span style="background:#2454d6"></span>Cobalt</button>
+        <button type="button" data-set-palette="plum"><span style="background:#7a2e66"></span>Plum</button>
+        <button type="button" data-set-palette="copper"><span style="background:#9a4f2f"></span>Copper</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span data-en="Typography" data-de="Typografie">Typography</span>
+      <div class="segmented-control stacked" role="group" aria-label="Typography options">
+        <button type="button" class="active" data-set-font="system" data-en="System" data-de="System">System</button>
+        <button type="button" data-set-font="editorial" data-en="Editorial" data-de="Editorial">Editorial</button>
+        <button type="button" data-set-font="technical" data-en="Technical" data-de="Technisch">Technical</button>
+      </div>
+    </div>
+  </aside>
 
   <button class="chat-launcher" type="button" aria-expanded="false" aria-controls="faq-chat" data-en="Ask" data-de="Fragen">Ask</button>
   <section id="faq-chat" class="faq-chat" aria-label="Offline FAQ chatbot" hidden>
@@ -306,6 +364,12 @@
     const translated = document.querySelectorAll("[data-en][data-de]");
     const localizedLinks = document.querySelectorAll("[data-href-en][data-href-de]");
     const placeholderInputs = document.querySelectorAll("[data-placeholder-en][data-placeholder-de]");
+    const styleToggle = document.querySelector(".style-toggle");
+    const stylePanel = document.querySelector("#style-panel");
+    const styleClose = document.querySelector(".style-close");
+    const themeButtons = document.querySelectorAll("[data-set-theme]");
+    const paletteButtons = document.querySelectorAll("[data-set-palette]");
+    const fontButtons = document.querySelectorAll("[data-set-font]");
     const chatLauncher = document.querySelector(".chat-launcher");
     const chatPanel = document.querySelector(".faq-chat");
     const chatClose = document.querySelector(".chat-close");
@@ -397,6 +461,19 @@
       }
     }
 
+    function applyPreference(type, value) {
+      document.documentElement.dataset[type] = value;
+      const selector = `[data-set-${type}]`;
+      document.querySelectorAll(selector).forEach((button) => {
+        button.classList.toggle("active", button.dataset[`set${type.charAt(0).toUpperCase() + type.slice(1)}`] === value);
+      });
+      try {
+        localStorage.setItem(`portfolio-${type}`, value);
+      } catch (error) {
+        // Appearance preferences stay session-local if storage is unavailable.
+      }
+    }
+
     langButtons.forEach((button) => {
       button.addEventListener("click", () => setLanguage(button.dataset.setLang));
     });
@@ -412,6 +489,72 @@
       savedLanguage = "en";
     }
     setLanguage(savedLanguage);
+
+    ["theme", "palette", "font"].forEach((type) => {
+      try {
+        const saved = localStorage.getItem(`portfolio-${type}`);
+        if (saved) {
+          applyPreference(type, saved);
+        }
+      } catch (error) {
+        // Default appearance remains active.
+      }
+    });
+
+    ["theme", "palette", "font"].forEach((type) => {
+      const value = params.get(type);
+      if (value) {
+        applyPreference(type, value);
+      }
+    });
+
+    if (params.get("style") === "open") {
+      stylePanel.hidden = false;
+      styleToggle.setAttribute("aria-expanded", "true");
+    }
+
+    styleToggle.addEventListener("click", () => {
+      const willOpen = stylePanel.hidden;
+      stylePanel.hidden = !willOpen;
+      styleToggle.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    styleClose.addEventListener("click", () => {
+      stylePanel.hidden = true;
+      styleToggle.setAttribute("aria-expanded", "false");
+      styleToggle.focus();
+    });
+
+    themeButtons.forEach((button) => {
+      button.addEventListener("click", () => applyPreference("theme", button.dataset.setTheme));
+    });
+
+    paletteButtons.forEach((button) => {
+      button.addEventListener("click", () => applyPreference("palette", button.dataset.setPalette));
+    });
+
+    fontButtons.forEach((button) => {
+      button.addEventListener("click", () => applyPreference("font", button.dataset.setFont));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !stylePanel.hidden) {
+        stylePanel.hidden = true;
+        styleToggle.setAttribute("aria-expanded", "false");
+        styleToggle.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !stylePanel.hidden &&
+        !stylePanel.contains(event.target) &&
+        !styleToggle.contains(event.target)
+      ) {
+        stylePanel.hidden = true;
+        styleToggle.setAttribute("aria-expanded", "false");
+      }
+    });
 
     function addMessage(text, sender) {
       const message = document.createElement("p");
